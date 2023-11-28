@@ -1,0 +1,10 @@
+arr1_length: 7
+arr1: 20 10 50 30 40 15 35
+
+swap_test: 2 5
+
+merge_arr_length: 7
+merge_arr: 1 3 10 11    2 2 7
+
+binary_search_query_length: 3
+binary_search_queries: 15 -20 10
