@@ -123,8 +123,21 @@ GetNextGap:
     //     x0: the updated gap value
 
     // INSERT YOUR CODE HERE
-
+    SUBIS XZR, X0, #1
+    B.GT nonzero
+    ADDI X0, XZR, #0
+    B zero
+nonzero:
+    ADDI X10, XZR, #2
+    ANDI X9, X0, #1
+    SUBIS XZR, X9, #1
+    B.NE even
+    ADDI X0, X0, #1
+even:
+    UDIV X0, X0, X10
+zero:
     br lr
+
 
 
 ////////////////////////
