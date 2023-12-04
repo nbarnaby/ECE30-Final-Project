@@ -107,6 +107,10 @@ Swap:
     //     x1: the address of the second value
 
     // INSERT YOUR CODE HERE
+    ldur x9, [x0, #0] // create temp value of x0
+    ldur x10, [x1, #0] // create temp value of x1
+    stur x9, [x1, #0] // store x0 value in x1(swap)
+    stur x10, [x0, #0] // store x1 value in x0(swap)
 
     br lr
 
