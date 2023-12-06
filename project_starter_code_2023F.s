@@ -134,11 +134,11 @@ GetNextGap:
 nonzero:
     ADDI X10, XZR, #2       // Sets temperorary variable X10 to 2
     ANDI X9, X0, #1         // Returns 1 if X0 is odd, 0 if X0 is even
-    SUBIS XZR, X9, #1       
-    B.NE even
-    ADDI X0, X0, #1
+    SUBIS XZR, X9, #1       // Checks if X9 is a 0 or 1
+    B.NE even               // Skips next command if X0 is even
+    ADDI X0, X0, #1         // Adds 1 to X0 before dividing it if odd
 even:
-    UDIV X0, X0, X10
+    UDIV X0, X0, X10        // Divides gap by 2
     br lr
 
 
