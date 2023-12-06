@@ -107,10 +107,10 @@ Swap:
     //     x1: the address of the second value
 
     // INSERT YOUR CODE HERE
-    ldur x9, [x0, #0] // create temp value of x0
-    ldur x10, [x1, #0] // create temp value of x1
-    stur x9, [x1, #0] // store x0 value in x1(swap)
-    stur x10, [x0, #0] // store x1 value in x0(swap)
+    ldur x9, [x0, #0]       // create temp value of x0
+    ldur x10, [x1, #0]      // create temp value of x1
+    stur x9, [x1, #0]       // store x0 value in x1(swap)
+    stur x10, [x0, #0]      // store x1 value in x0(swap)
 
     br lr
 
@@ -127,19 +127,18 @@ GetNextGap:
     //     x0: the updated gap value
 
     // INSERT YOUR CODE HERE
-    SUBIS XZR, X0, #1
-    B.GT nonzero
-    ADDI X0, XZR, #0
-    B zero
+    SUBIS XZR, X0, #1       // Check if X0 is 1
+    B.GT nonzero            // If X0>1, go to nonzero
+    ADDI X0, XZR, #0        // Returns 0 if X0<=1
+    br lr
 nonzero:
-    ADDI X10, XZR, #2
-    ANDI X9, X0, #1
-    SUBIS XZR, X9, #1
+    ADDI X10, XZR, #2       // Sets temperorary variable X10 to 2
+    ANDI X9, X0, #1         // Returns 1 if X0 is odd, 0 if X0 is even
+    SUBIS XZR, X9, #1       
     B.NE even
     ADDI X0, X0, #1
 even:
     UDIV X0, X0, X10
-zero:
     br lr
 
 
