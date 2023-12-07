@@ -4,8 +4,8 @@
 //                    //
 ////////////////////////
 
-// Partner1: (your name here), (Student ID here)
-// Partner2: (your name here), (Student ID here)
+// Partner1: Nathaniel Barnaby, A16648285
+// Partner2: Alec Nial, A17180937
 
 ////////////////////////
 //                    //
@@ -155,39 +155,39 @@ inPlaceMerge:
     //    x2: The gap used in comparisons for shell sorting
 
     // INSERT YOUR CODE HERE
-    SUBI SP, SP, #24
-    STUR FP, [SP, #0]
-    ADDI FP, SP, #16
-    STUR LR, [FP, #0]
-    SUBIS XZR, X2, #1
-    B.LT zero
-    ADDI X11, X0, #0
-    ADDI X12, X1, #0
-    ADDI X9, XZR, #8
-    MUL X10, X2, X9
-    ADD X1, X0, X10
+    SUBI SP, SP, #24        // Allocate space on stack
+    STUR FP, [SP, #0]       // Push FP on stack
+    ADDI FP, SP, #16        // New FP
+    STUR LR, [FP, #0]       // Push LR on stack
+    SUBIS XZR, X2, #1       // Check if gap<1
+    B.LT zero               // If gap<1, return
+    ADDI X11, X0, #0        // Set X11 to initial X0
+    ADDI X12, X1, #0        // Set X12 to initial X1
+    ADDI X9, XZR, #8        // Set X9 to 8 for multiply function
+    MUL X10, X2, X9         // Set X10 to gap*8, which is the gap in terms of address number
+    ADD X1, X0, X10         // Assuming X0 is left, X1 is now right=left+gap
 loop:
-    LDUR X9, [X0, #0]
-    LDUR X10, [X1, #0]
-    SUBS XZR, X9, X10
-    B.LE noswap
-    BL Swap
+    LDUR X9, [X0, #0]       // Load left value
+    LDUR X10, [X1, #0]      // Load right value
+    SUBS XZR, X9, X10       // Check if left value is greater than right value
+    B.LE noswap             // If left value isn't, don't swap them
+    BL Swap                 // If left value is, the they are swapped
 noswap:
-    ADDI X0, X0, #8
-    ADDI X1, X1, #8
-    SUBS XZR, X1, X12
-    B.LE loop
+    ADDI X0, X0, #8         // Change X0 to next element in array
+    ADDI X1, X1, #8         // Change X1 to next element in array
+    SUBS XZR, X1, X12       // Check if right element (X1) is still within the last element of the second sub-array
+    B.LE loop               // If it is, then loop. If it isn't, then continue
 
-    ADDI X0, X2, #0
-    BL GetNextGap
-    ADDI X2, X0, #0
-    ADDI X0, X11, #0
-    ADDI X1, X12, #0
-    BL inPlaceMerge
+    ADDI X0, X2, #0         // Set X0 to gap for GetNextGap
+    BL GetNextGap           // Call GetNextGap
+    ADDI X2, X0, #0         // Set X2 to gap from GetNextGap
+    ADDI X0, X11, #0        // Set X0 back to initial value
+    ADDI X1, X12, #0        // Set X1 back to initial value
+    BL inPlaceMerge         // Re-call inPlaceMerge (happens until gap is 0)
 zero:
-    LDUR LR, [FP, #0]
-    LDUR FP, [FP, #-16]
-    ADDI SP, SP, #24
+    LDUR LR, [FP, #0]       // Restore LR
+    LDUR FP, [FP, #-16]     // Restore FP
+    ADDI SP, SP, #24        // Restore SP
     br lr
 
 
