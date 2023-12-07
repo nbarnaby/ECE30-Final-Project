@@ -155,6 +155,7 @@ inPlaceMerge:
     //    x2: The gap used in comparisons for shell sorting
 
     // INSERT YOUR CODE HERE
+    SUBI SP, SP, #24
     SUBIS XZR, X2, #1
     B.LT zero
     ADDI X11, X0, #0
