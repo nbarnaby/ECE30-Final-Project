@@ -156,6 +156,9 @@ inPlaceMerge:
 
     // INSERT YOUR CODE HERE
     SUBI SP, SP, #24
+    STUR FP, [SP, #0]
+    ADDI FP, SP, #16
+    STUR LR, [FP, #0]
     SUBIS XZR, X2, #1
     B.LT zero
     ADDI X11, X0, #0
@@ -182,6 +185,9 @@ noswap:
     ADDI X1, X12, #0
     BL inPlaceMerge
 zero:
+    LDUR LR, [FP, #0]
+    LDUR FP, [FP, #-16]
+    ADDI SP, SP, #24
     br lr
 
 
