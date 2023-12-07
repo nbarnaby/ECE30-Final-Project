@@ -202,7 +202,44 @@ MergeSort:
     //     x1: The ending address of the array
 
     // INSERT YOUR CODE HERE
+    SUBI SP, SP, #48
+    STUR FP, [SP, #0]
+    ADDI FP, SP, #40
+    STUR LR, [FP, #0]
+    LSR X0,X0,#3
+    LSR X1,X1,#3
+    SUBS XZR, X1, X0
+    B.EQ done
+    ADD X14, X0,X1
+    LSR X14, X14, #1
+    LSL X0, X0, #3
+    LSL X1, X1, #3
+    LSL X14, X14, #3
+    STUR X1, [FP, #-8]
+    STUR X0, [FP, #-16]
+    STUR X14, [FP, #-24]
+    ORR X1,X14, XZR
+    BL MergeSort
+    LDUR X0, [FP, #-24]
+    ADDI X0, X0, #8
+    LDUR X1, [FP, #-8]
+    BL MergeSort
+    LDUR X1, [FP, #-8]
+    LDUR X0, [FP, #-16]
+    LSR X0,X0,#3
+    LSR X1,X1,#3
+    SUB X0, X1, X0
+    ADDI X0, X0, #1
+    BL GetNextGap
+    ORR X2, X0, XZR
+    LDUR X1, [FP, #-8]
+    LDUR X0, [FP, #-16]
+    BL inPlaceMerge
 
+done:
+    LDUR LR, [FP, #0]
+    LDUR FP, [FP, #-40]
+    ADDI SP, SP, #48
     br lr
 
 ////////////////////////
