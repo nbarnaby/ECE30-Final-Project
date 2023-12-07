@@ -155,7 +155,32 @@ inPlaceMerge:
     //    x2: The gap used in comparisons for shell sorting
 
     // INSERT YOUR CODE HERE
+    SUBIS XZR, X2, #1
+    B.LT zero
+    ADDI X11, X0, #0
+    ADDI X12, X1, #0
+    ADDI X9, XZR, #8
+    MUL X10, X2, X9
+    ADD X1, X0, X10
+loop:
+    LDUR X9, [X0, #0]
+    LDUR X10, [X1, #0]
+    SUBS XZR, X9, X10
+    B.LE noswap
+    BL Swap
+noswap:
+    ADDI X0, X0, #8
+    ADDI X1, X1, #8
+    SUBS XZR, X1, X12
+    B.LE loop
 
+    ADDI X0, X2, #0
+    BL GetNextGap
+    ADDI X2, X0, #0
+    ADDI X0, X11, #0
+    ADDI X1, X12, #0
+    BL inPlaceMerge
+zero:
     br lr
 
 
